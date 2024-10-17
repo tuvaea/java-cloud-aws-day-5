@@ -38,9 +38,9 @@ public class OrderController {
         this.snsClient = SnsClient.builder().build();
         this.eventBridgeClient = EventBridgeClient.builder().build();
 
-        this.queueUrl = "";
-        this.topicArn = "";
-        this.eventBusName = "";
+        this.queueUrl = "https://sqs.eu-west-1.amazonaws.com/637423341661/tuvaeaOrderQueue";
+        this.topicArn = "arn:aws:sns:eu-west-1:637423341661:tuvaeaOrderCreatedTopic";
+        this.eventBusName = "tuvaeaCustomEventBus";
 
         this.objectMapper = new ObjectMapper();
     }
@@ -67,7 +67,7 @@ public class OrderController {
 
                 sqsClient.deleteMessage(deleteRequest);
             } catch (JsonProcessingException e) {
-//                e.printStackTrace();
+                e.printStackTrace();
             }
         }
         String status = String.format("%d Orders have been processed", messages.size());
